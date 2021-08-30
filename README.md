@@ -115,6 +115,8 @@
 ### Задачи
 
 * docker run (задача с потерей файла на выходе из контейнера) - Запустили docker run -it ubuntu создали файл и вышли из интерфейса. Сохраниться ли файл?
+    > Containers are immutable and you should not write data into your container that you would like to be persisted after that container stops running. You want to think about containers as unchangeable processes that could stop running at any moment and be replaced by another very easily. So, with that said, how do we write data and have a container use it at runtime or write data at runtime that can be persisted. This is where volumes come into play.
+
 * docker networking - На хост системе выключен ipv4.forwarding. Как дать доступ к контейнеру?
 
 ### Ссылки
@@ -124,8 +126,47 @@
 ## Orchestration
 
 * Что такое оркестратор? Какие задачи он решает?
-* k8s - основные примитивы? Для чего они? - pod, service, deployment
+    > Оркестратор отвечает за автоматическое размещение, координацию и управление контейнерами
+
+* k8s - основные примитивы? Для чего они? - pod, service, deployment, replicaset
+    > A Deployment provides declarative updates for Pods and ReplicaSets.
+
+    > A ReplicaSet's purpose is to maintain a stable set of replica Pods running at any given time. As such, it is often used to guarantee the availability of a specified number of identical Pods.
+
+    > StatefulSet is the workload API object used to manage stateful applications.
+
+    > A DaemonSet ensures that all (or some) Nodes run a copy of a Pod. As nodes are added to the cluster, Pods are added to them. As nodes are removed from the cluster, those Pods are garbage collected. Deleting a DaemonSet will clean up the Pods it created.
+
+    > A Job creates one or more Pods and will continue to retry execution of the Pods until a specified number of them successfully terminate. As pods successfully complete, the Job tracks the successful completions. When a specified number of successful completions is reached, the task (ie, Job) is complete. Deleting a Job will clean up the Pods it created. Suspending a Job will delete its active Pods until the Job is resumed again.
+
+    > A CronJob creates Jobs on a repeating schedule.
+
+    > Service - An abstract way to expose an application running on a set of Pods as a network service. With Kubernetes you don't need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives Pods their own IP addresses and a single DNS name for a set of Pods, and can load-balance across them.
+
+    > Ingress - An API object that manages external access to the services in a cluster, typically HTTP. Ingress may provide load balancing, SSL termination and name-based virtual hosting.
+
 * k8s - пять бинарников k8s - какие они? зачем?
+    > Такую фразу можно часто услышать в DevOps комьюнити, её сарказм в том, что k8s выглядит простым, но на деле является очень сложным продуктом, с большим количеством вариантов запуска и конфигурирования конкретного кластера.
+
+    > **К компонентам мастера относятся:**
+
+    > kube-apiserver - центральный “роутер”, единственный компонент который может писать и читать etcd
+
+    > kube-controller-manager - набор лупов, которые периодически просыпаются и обрабатывают конкретные сущности
+
+    > etcd - key/value база данных, single source of truth
+
+    > kube-scheduler - гранд-мастер тетриса, решает на какой ноде какой под запустить
+
+    > **К компонентам воркер нод, относятся:**
+
+    > kubelet - связующее звено между apiserver и непосредственно container runtime
+
+    > kube-proxy - сетевая прокси, необходимая для работы service
+
+    **А вот как это все работает:**
+    ![А вот как это все работает](https://farm66.staticflickr.com/65535/49238858918_779ac4d57b_o.jpg)
+Определения позаимствованы на https://doam.ru/kubernetest_workshop/
 
 ## Облака
 
