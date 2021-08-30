@@ -171,6 +171,7 @@
 ## Облака
 
 * Отличие High Availability от Fault Tolerance?
+    > Хорошая статья вот [тут](http://www.solidex.by/stati/kult-high-availability-i-fault-tolerance/)
 
 ## Linux
 
