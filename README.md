@@ -41,10 +41,13 @@
     > Каждый пайплайн запускается автоматически по триггеру из системы контроля версий. Шаги будут выполняться автоматически только в безопасной среде, а перед деплоем на Production пайплайн остановится и будет ждать ручного подтверждения. Механизм, как это будет реализовано может быть разным. От самого простого, когда ответственный человек должен зайти в пайплайн и нажать кнопку Next, до интерактивного бота с кнопками в корпоративном мессенджере.
 
 * Что такое CD (deployment) ?
-    > Каждый пайплайн запускается автоматически по триггеру из системы контроля версий. В случае Continuous Deployment каждый следующий шаг, будет выполнен автоматически если предыдущий был успешный, включая деплой на Production.
+    > Каждый пайплайн запускается автоматически по триггеру из системы контроля версий. В случае Continuous Deployment каждый следующий шаг, будет выполнен автоматически если предыдущий был успешный, включая деплой на Production.  
 
 * Отличие continuous delivery от continuous deployment?
     > как следует из изложенного выше - отличия состоит в способе передачи артефактов в Production.
+    
+* Что такое оркестратор? Какие задачи он решает?
+    > Оркестратор отвечает за автоматическое размещение, координацию и управление контейнерами    
 
 * Типовой pipeline: lint -> tests -> docker image build + push -> ssh login: deploy (docker swarm deploy).
 
@@ -128,27 +131,9 @@
 
 * https://www.docker.com/blog/top-questions-for-getting-started-with-docker/
 
-## Orchestration
-
-* Что такое оркестратор? Какие задачи он решает?
-    > Оркестратор отвечает за автоматическое размещение, координацию и управление контейнерами
+## Kubernetes
 
 * k8s - основные примитивы? Для чего они? - pod, service, deployment, replicaset
-    > A Deployment provides declarative updates for Pods and ReplicaSets.
-
-    > A ReplicaSet's purpose is to maintain a stable set of replica Pods running at any given time. As such, it is often used to guarantee the availability of a specified number of identical Pods.
-
-    > StatefulSet is the workload API object used to manage stateful applications.
-
-    > A DaemonSet ensures that all (or some) Nodes run a copy of a Pod. As nodes are added to the cluster, Pods are added to them. As nodes are removed from the cluster, those Pods are garbage collected. Deleting a DaemonSet will clean up the Pods it created.
-
-    > A Job creates one or more Pods and will continue to retry execution of the Pods until a specified number of them successfully terminate. As pods successfully complete, the Job tracks the successful completions. When a specified number of successful completions is reached, the task (ie, Job) is complete. Deleting a Job will clean up the Pods it created. Suspending a Job will delete its active Pods until the Job is resumed again.
-
-    > A CronJob creates Jobs on a repeating schedule.
-
-    > Service - An abstract way to expose an application running on a set of Pods as a network service. With Kubernetes you don't need to modify your application to use an unfamiliar service discovery mechanism. Kubernetes gives Pods their own IP addresses and a single DNS name for a set of Pods, and can load-balance across them.
-
-    > Ingress - An API object that manages external access to the services in a cluster, typically HTTP. Ingress may provide load balancing, SSL termination and name-based virtual hosting.
 
 * k8s - пять бинарников k8s - какие они? зачем?
     > Такую фразу можно часто услышать в DevOps комьюнити, её сарказм в том, что k8s выглядит простым, но на деле является очень сложным продуктом, с большим количеством вариантов запуска и конфигурирования конкретного кластера.
